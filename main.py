@@ -312,6 +312,11 @@ class TelegramMonitorApp(tk.Tk):
             note_label = tk.Label(main_frame, text="Note: For each keyword, add it three times as follows:\nabdo\nAbdo\nABDO", justify="left", fg="blue")
             note_label.pack(fill=tk.X, pady=(0,5))
 
+        if config_key != "keywords":
+            note_label = tk.Label(main_frame, text="Note: For each Sticker, add it Like this :\n5997064617816231180", justify="left", fg="blue")
+            note_label.pack(fill=tk.X, pady=(0,5))
+
+
         # قائمة مع شريط تمرير
         list_frame = tk.Frame(main_frame)
         list_frame.pack(fill=tk.BOTH, expand=True)
@@ -460,12 +465,23 @@ class TelegramMonitorApp(tk.Tk):
         dialog.transient(self)
         dialog.grab_set()
 
-        # تحديد حجم النافذة
-        dialog.update_idletasks()
+        # تحديد حجم النافذة الفرعية
         width = 300
         height = 150
-        x = (dialog.winfo_screenwidth() // 2) - (width // 2)
-        y = (dialog.winfo_screenheight() // 2) - (height // 2)
+
+        # تحديث بيانات النافذة الرئيسية للتأكد من دقة الأبعاد والموقع
+        self.update_idletasks()
+        
+        # الحصول على موقع وحجم النافذة الرئيسية
+        parent_x = self.winfo_rootx()
+        parent_y = self.winfo_rooty()
+        parent_width = self.winfo_width()
+        parent_height = self.winfo_height()
+        
+        # حساب مركز النافذة الرئيسية وتحديد موقع النافذة الفرعية بحيث تظهر في وسطها
+        x = parent_x + (parent_width // 2) - (width // 2)
+        y = parent_y + (parent_height // 2) - (height // 2)
+        
         dialog.geometry(f"{width}x{height}+{x}+{y}")
 
         tk.Label(dialog, text="Enter phone number (international format):").pack(padx=20, pady=5)
@@ -489,12 +505,23 @@ class TelegramMonitorApp(tk.Tk):
         dialog.grab_set()
 
 
-        # تحديد حجم النافذة
-        dialog.update_idletasks()
+        # تحديد حجم النافذة الفرعية
         width = 300
         height = 150
-        x = (dialog.winfo_screenwidth() // 2) - (width // 2)
-        y = (dialog.winfo_screenheight() // 2) - (height // 2)
+
+        # تحديث بيانات النافذة الرئيسية للتأكد من دقة الأبعاد والموقع
+        self.update_idletasks()
+        
+        # الحصول على موقع وحجم النافذة الرئيسية
+        parent_x = self.winfo_rootx()
+        parent_y = self.winfo_rooty()
+        parent_width = self.winfo_width()
+        parent_height = self.winfo_height()
+        
+        # حساب مركز النافذة الرئيسية وتحديد موقع النافذة الفرعية بحيث تظهر في وسطها
+        x = parent_x + (parent_width // 2) - (width // 2)
+        y = parent_y + (parent_height // 2) - (height // 2)
+        
         dialog.geometry(f"{width}x{height}+{x}+{y}")
 
 
@@ -517,12 +544,23 @@ class TelegramMonitorApp(tk.Tk):
         dialog.transient(self)
         dialog.grab_set()
 
-        # تحديد حجم النافذة
-        dialog.update_idletasks()
+        # تحديد حجم النافذة الفرعية
         width = 300
         height = 150
-        x = (dialog.winfo_screenwidth() // 2) - (width // 2)
-        y = (dialog.winfo_screenheight() // 2) - (height // 2)
+
+        # تحديث بيانات النافذة الرئيسية للتأكد من دقة الأبعاد والموقع
+        self.update_idletasks()
+        
+        # الحصول على موقع وحجم النافذة الرئيسية
+        parent_x = self.winfo_rootx()
+        parent_y = self.winfo_rooty()
+        parent_width = self.winfo_width()
+        parent_height = self.winfo_height()
+        
+        # حساب مركز النافذة الرئيسية وتحديد موقع النافذة الفرعية بحيث تظهر في وسطها
+        x = parent_x + (parent_width // 2) - (width // 2)
+        y = parent_y + (parent_height // 2) - (height // 2)
+        
         dialog.geometry(f"{width}x{height}+{x}+{y}")
 
 
@@ -614,6 +652,11 @@ class TelegramMonitorApp(tk.Tk):
                                     sticker={'name': 'Sticker'}
                                 )
                                 self.db.add_message(msg.id, chat.id)
+                            elif sticker_id not in config['stickers']:
+                                self.message_queue.put(f"New Sticker ID : {sticker_id}")
+
+
+
                     except Exception as e:
                         self.message_queue.put(f"Error processing message: {str(e)}")
 
