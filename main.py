@@ -653,7 +653,7 @@ class TelegramMonitorApp(tk.Tk):
                                 )
                                 self.db.add_message(msg.id, chat.id)
                             elif sticker_id not in config['stickers']:
-                                self.message_queue.put(f"New Sticker ID : {sticker_id}")
+                                self.message_queue.put(f"New Sticker ID : {sticker_id} from chat : sender_name ")
 
 
 
