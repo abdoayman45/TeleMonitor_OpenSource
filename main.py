@@ -642,7 +642,7 @@ class TelegramMonitorApp(tk.Tk):
                                     )
                                     self.db.add_message(msg.id, chat.id)
                                     break
-                        if msg.sticker and config.get('stickers'):
+                        elif msg.sticker and config.get('stickers'):
                             sticker_id = str(msg.sticker.id)
                             if sticker_id in config['stickers']:
                                 await self.send_alert(
@@ -653,10 +653,10 @@ class TelegramMonitorApp(tk.Tk):
                                 )
                                 self.db.add_message(msg.id, chat.id)
                             else:
-                                self.message_queue.put(f"New Sticker ID : {sticker_id}")
+                                self.message_queue.put(f"New Sticker ID : {sticker_id}  from {sender_name}")
                         else:
                             sticker_id = str(msg.sticker.id)
-                            self.message_queue.put(f"New Sticker ID : {sticker_id}")
+                            self.message_queue.put(f"New Sticker ID : {sticker_id}  from {sender_name}")
 
 
                     except Exception as e:
