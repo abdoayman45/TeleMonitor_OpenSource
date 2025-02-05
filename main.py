@@ -309,7 +309,7 @@ class TelegramMonitorApp(tk.Tk):
 
         # إذا كان تعديل الكلمات المفتاحية، نضيف ملاحظة توضيحية
         if config_key == "keywords":
-            note_label = tk.Label(main_frame, text="Note: For each keyword, add it three times as follows:\nabdo\nAbdo\nABDO", justify="left", fg="blue")
+            note_label = tk.Label(main_frame, text="Note: Add each keyword only once. Do not worry about case sensitivity.", justify="left", fg="blue")
             note_label.pack(fill=tk.X, pady=(0,5))
 
         if config_key != "keywords":
